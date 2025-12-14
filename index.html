@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-en="AegisAI Health (AGAI) - Presale" data-lang-zh="AegisAI Health (AGAI) - 预售"></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            gap: 5px;
+            margin-right: 20px;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn.active {
+            background: #00d4ff;
+            color: #1a1a2e;
+            border-color: #00d4ff;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+
+        /* Wallet Connection */
+        .wallet-connect {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        #connectWalletBtn {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            color: #1a1a2e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        #connectWalletBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .wallet-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .disconnect-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .disconnect-btn:hover {
+            background: #ff3742;
+        }
+
+        #connectedWallet {
+            color: #00d2d3;
+            font-weight: bold;
+        }
+
+        #walletBalance {
+            color: #2ed573;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #b0b0b0;
+        }
+
+        /* Presale Card */
+        .presale-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .presale-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .presale-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .presale-percentage {
+            font-size: 72px;
+            font-weight: bold;
+            color: #00ff88;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Network Selection */
+        .network-selection {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .network-selection h3 {
+            margin-bottom: 15px;
+        }
+
+        .network-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .network-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .network-btn.active {
+            border-color: #00d4ff;
+            background: #00d4ff;
+            color: #1a1a2e;
+        }
+
+        /* Amount Selection */
+        .amount-selection {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .amount-selection h3 {
+            margin-bottom: 15px;
+        }
+
+        .amount-input {
+            width: 200px;
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .amount-input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        /* Participate Button */
+        .participate-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            color: #1a1a2e;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .participate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .participate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Token Info Section */
+        .token-info {
+            padding: 60px 0;
+        }
+
+        .token-info h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        .info-section {
+            margin-bottom: 60px;
+        }
+
+        .info-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+
+        .info-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #b0b0b0;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .info-section li {
+            margin-bottom: 10px;
+            color: #b0b0b0;
+            position: relative;
+        }
+
+        .info-section li:before {
+            content: "•";
+            color: #00d4ff;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .presale-percentage {
+                font-size: 48px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .wallet-connect {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1 data-lang-en="AGAI Presale" data-lang-zh="AGAI 预售"></h1>
+                </div>
+                <div class="language-switcher">
+                    <button class="language-btn active" data-lang="en">EN</button>
+                    <button class="language-btn" data-lang="zh">中文</button>
+                </div>
+                <div class="wallet-connect">
+                    <button id="connectWalletBtn" class="wallet-btn" data-lang-en="Connect Wallet" data-lang-zh="连接钱包"></button>
+                    <div id="walletInfo" class="wallet-info" style="display: none;">
+                        <span id="connectedWallet"></span>
+                        <span id="walletBalance"></span>
+                        <button id="disconnectWalletBtn" class="disconnect-btn" data-lang-en="Disconnect" data-lang-zh="断开"></button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-lang-en="AegisAI Health (AGAI)" data-lang-zh="AegisAI Health (AGAI)"></h1>
+            <p data-lang-en="AI + Blockchain Platform Reshaping Global Healthcare" data-lang-zh="重塑全球医疗生态的 AI + 区块链平台"></p>
+        </div>
+    </section>
+
+    <!-- Presale Card -->
+    <section class="presale">
+        <div class="container">
+            <div class="presale-card">
+                <div class="presale-header">
+                    <h2 class="presale-title" data-lang-en="AGAI Token Presale" data-lang-zh="AGAI 代币预售"></h2>
+                    <div class="presale-percentage" id="presalePercentage">72.83%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 72.83%"></div>
+                    </div>
+                </div>
+
+                <!-- Network Selection -->
+                <div class="network-selection">
+                    <h3 data-lang-en="Select Network" data-lang-zh="选择网络"></h3>
+                    <div class="network-buttons">
+                        <button class="network-btn active" data-network="eth" data-lang-en="Ethereum" data-lang-zh="Ethereum"></button>
+                        <button class="network-btn" data-network="bnb" data-lang-en="BNB Chain" data-lang-zh="BNB Chain"></button>
+                        <button class="network-btn" data-network="polygon" data-lang-en="Polygon" data-lang-zh="Polygon"></button>
+                    </div>
+                </div>
+
+                <!-- Amount Selection -->
+                <div class="amount-selection">
+                    <h3 data-lang-en="Enter Amount (USDT)" data-lang-zh="输入参与金额 (USDT)"></h3>
+                    <input type="number" class="amount-input" id="amountInput" placeholder="0.0" min="0.1" step="0.1">
+                </div>
+
+                <button class="participate-btn" id="participateBtn" data-lang-en="Participate" data-lang-zh="参与预售"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Token Info Section -->
+    <section class="token-info">
+        <div class="container">
+            <h2 data-lang-en="About AegisAI Health" data-lang-zh="关于 AegisAI Health"></h2>
+
+            <div class="info-section">
+                <h3 data-lang-en="Vision" data-lang-zh="愿景"></h3>
+                <p data-lang-en="Build the world's first AI-driven, blockchain-secured data healthcare infrastructure to achieve precise diagnosis, data security, and medical inclusion." data-lang-zh="构建全球首个由 AI 自主驱动、区块链保障的数据医疗基础设施，实现精准诊断、数据安全与医疗普惠。"></p>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Positioning" data-lang-zh="定位"></h3>
+                <p data-lang-en="AI Medical Agent Network + Medical Data Value Settlement Protocol" data-lang-zh="AI 医疗智能体网络 + 医疗数据价值结算协议"></p>
+                <p data-lang-en="Solve three major problems: lack of medical AI data, patient data monopoly, and inefficient cross-institutional collaboration." data-lang-zh="解决医疗 AI 数据匮乏、患者数据垄断、跨机构协作低效三大问题。"></p>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Core Technologies" data-lang-zh="核心技术"></h3>
+                <ul>
+                    <li data-lang-en="AI Medical Agents: Multi-model collaborative diagnosis, self-learning." data-lang-zh="AI 医疗智能体：多模型协同诊断、自学习。"></li>
+                    <li data-lang-en="Medical Data On-chain: Data hash on-chain, zero-knowledge verification, patient autonomous authorization." data-lang-zh="医疗数据上链：数据哈希链上，零知识验证，患者自主授权。"></li>
+                    <li data-lang-en="AGAI Token: AI calls, data contribution, node staking, ecosystem incentives." data-lang-zh="AGAI Token：AI 调用、数据贡献、节点质押、生态激励。"></li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Token Model" data-lang-zh="代币模型"></h3>
+                <p data-lang-en="• AGAI: Network native token used for AI calls, data authorization, ecosystem incentives, and governance." data-lang-zh="• AGAI：网络原生代币，用于 AI 调用、数据授权、生态激励、治理。"></p>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Use Cases" data-lang-zh="应用场景"></h3>
+                <p data-lang-en="Hospital AI-assisted diagnosis, pharmaceutical RWD modeling, doctor decision support, patient data rights confirmation, insurance intelligent claims." data-lang-zh="医院 AI 辅助诊断、药企 RWD 建模、医生决策支持、患者数据确权、保险智能理赔。"></p>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Core Team" data-lang-zh="核心团队"></h3>
+                <ul>
+                    <li data-lang-en="Dr. Ethan Moore: Founder & AI Architect, top medical AI research background." data-lang-zh="Dr. Ethan Moore：创始人兼 AI 架构师，顶级医疗 AI 研究背景。"></li>
+                    <li data-lang-en="Alexandre Duval: Blockchain Architect, Web3 & data protocol expert." data-lang-zh="Alexandre Duval：区块链架构师，Web3 与数据协议专家。"></li>
+                    <li data-lang-en="Dr. Sophia Lin: Chief Medical Officer, tertiary hospital chief physician, international clinical research experience." data-lang-zh="Dr. Sophia Lin：首席医疗官，三甲医院主任医师，国际临床研究经验。"></li>
+                    <li data-lang-en="Michael Rosen: Strategy Director, rich experience in medical technology investment and financing." data-lang-zh="Michael Rosen：战略负责人，医疗科技投融资经验丰富。"></li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Strategic Partnerships" data-lang-zh="战略合作"></h3>
+                <p data-lang-en="International medical research institutions, medical imaging and equipment manufacturers, AI model teams, medical insurance and health management platforms, Web3 infrastructure projects." data-lang-zh="国际医疗研究机构、医疗影像与设备厂商、AI 模型团队、医疗保险与健康管理平台、Web3 基础设施项目。"></p>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Roadmap" data-lang-zh="路线图"></h3>
+                <ul>
+                    <li data-lang-en="Phase 1: Core AI model launch, AGAI Token release, data protocol testnet." data-lang-zh="Phase 1：核心 AI 模型上线，AGAI Token 发布，数据协议测试网。"></li>
+                    <li data-lang-en="Phase 2: Medical institution access, agent market launch, data revenue distribution system." data-lang-zh="Phase 2：医疗机构接入，智能体市场上线，数据收益分配系统。"></li>
+                    <li data-lang-en="Phase 3: Global healthcare ecosystem expansion, decentralized governance, cross-border compliant applications." data-lang-zh="Phase 3：全球医疗生态扩展，去中心化治理，跨国合规落地应用。"></li>
+                </ul>
+            </div>
+
+            <div class="info-section">
+                <h3 data-lang-en="Tokenomics" data-lang-zh="代币经济学"></h3>
+                <p data-lang-en="• Total Supply: 100 million AGAI" data-lang-zh="• 总量：1 亿枚 AGAI"></p>
+                <p data-lang-en="• Distribution:" data-lang-zh="• 分配："></p>
+                <ul>
+                    <li data-lang-en="20% Presale" data-lang-zh="20% 预售"></li>
+                    <li data-lang-en="30% Community Building" data-lang-zh="30% 社区建设"></li>
+                    <li data-lang-en="20% Ecosystem Incentives" data-lang-zh="20% 生态激励"></li>
+                    <li data-lang-en="10% Medical Assistance" data-lang-zh="10% 医疗救助"></li>
+                    <li data-lang-en="20% Liquidity" data-lang-zh="20% 流动性"></li>
+                </ul>
+                <p data-lang-en="• Use Cases: AI calls, data authorization, node staking, ecosystem incentives, charitable medical care, market liquidity." data-lang-zh="• 用途：AI 调用、数据授权、节点质押、生态激励、公益医疗、市场流动性。"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p data-lang-en="&copy; 2024 AegisAI Health. All rights reserved." data-lang-zh="&copy; 2024 AegisAI Health. 保留所有权利。"></p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 data-lang-en="Presale Participation Successful!" data-lang-zh="预售参与成功！"></h2>
+            <p data-lang-en="You have successfully participated in the AGAI token presale." data-lang-zh="您已成功参与 AGAI 代币预售。"></p>
+            <p data-lang-en="Receiving Address: 0x613Ddc1B83B9a90924380748e5eb6A5E3b435f2a" data-lang-zh="收款地址：0x613Ddc1B83B9a90924380748e5eb6A5E3b435f2a"></p>
+        </div>
+    </div>
+
+    <!-- Web3.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@4.11.1/dist/web3.min.js"></script>
+    <script>
+        // Language Management Functionality
+        let currentLanguage = 'en';
+        
+        function getTextByLanguage(chinese, english) {
+            return currentLanguage === 'zh' ? chinese : english;
+        }
+        
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+            
+            // Update all text elements with data-lang attributes
+            document.querySelectorAll('[data-lang-en]').forEach(element => {
+                element.textContent = element.getAttribute(`data-lang-${lang}`);
+            });
+            
+            // Save language preference to localStorage
+            localStorage.setItem('preferredLanguage', lang);
+        }
+        
+        // Add event listeners for language buttons and initialize language
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageButtons = document.querySelectorAll('.language-btn');
+            languageButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setLanguage(this.dataset.lang);
+                });
+            });
+            
+            // Check if user has a language preference in localStorage
+            const savedLanguage = localStorage.getItem('preferredLanguage');
+            if (savedLanguage) {
+                // If saved language exists, use it
+                setLanguage(savedLanguage);
+            } else {
+                // Otherwise, set default language to English
+                setLanguage('en');
+            }
+        });
+
+        // Presale Progress Functionality
+        let currentPercentage = 72.83;
+        const percentageElement = document.getElementById('presalePercentage');
+        const progressFillElement = document.getElementById('progressFill');
+
+        function updatePresaleProgress() {
+            currentPercentage += 0.01;
+            if (currentPercentage > 100) {
+                currentPercentage = 0;
+            }
+            
+            const formattedPercentage = currentPercentage.toFixed(2);
+            percentageElement.textContent = `${formattedPercentage}%`;
+            progressFillElement.style.width = `${formattedPercentage}%`;
+        }
+
+        // Update every minute
+        setInterval(updatePresaleProgress, 60000);
+
+        // Web3 and Wallet Connection
+        let web3;
+        let connectedWalletAddress = null;
+        let selectedNetwork = 'eth';
+        const presaleAddress = '0x613Ddc1B83B9a90924380748e5eb6A5E3b435f2a';
+
+        // Network configurations - using reliable public RPCs
+        const networks = {
+            eth: { chainId: '0x1', name: 'Ethereum Mainnet', rpcUrl: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161' },
+            bnb: { chainId: '0x38', name: 'BNB Smart Chain', rpcUrl: 'https://bsc-dataseed1.binance.org/' },
+            polygon: { chainId: '0x89', name: 'Polygon Mainnet', rpcUrl: 'https://polygon-bor.publicnode.com/' }
+        };
+
+        // Wallet Connection
+        const connectWalletBtn = document.getElementById('connectWalletBtn');
+        const walletInfo = document.getElementById('walletInfo');
+        const disconnectWalletBtn = document.getElementById('disconnectWalletBtn');
+        const connectedWalletElement = document.getElementById('connectedWallet');
+        const walletBalanceElement = document.getElementById('walletBalance');
+
+        // Function to get wallet balance
+        async function getWalletBalance() {
+            if (!web3 || !connectedWalletAddress) return;
+            
+            try {
+                const balance = await web3.eth.getBalance(connectedWalletAddress);
+                const balanceInEther = web3.utils.fromWei(balance, 'ether');
+                
+                // Get current network symbol
+                const network = networks[selectedNetwork];
+                const symbol = selectedNetwork === 'eth' ? 'ETH' : selectedNetwork === 'bnb' ? 'BNB' : 'MATIC';
+                
+                walletBalanceElement.textContent = `${parseFloat(balanceInEther).toFixed(4)} ${symbol}`;
+            } catch (error) {
+                console.error('获取余额错误:', error);
+                walletBalanceElement.textContent = '获取失败';
+            }
+        }
+
+        // Connect wallet function - supports any Web3 wallet (MetaMask, OKX, BitGet, TP Wallet, etc.)
+        async function connectWallet() {
+            try {
+                // Check if Web3 provider is available
+                if (typeof window.ethereum === 'undefined') {
+                    // Try WalletConnect fallback
+                    try {
+                        // This is a placeholder for WalletConnect integration
+                        // In production, you would use the WalletConnect SDK
+                        alert('请安装 MetaMask、OKX Web3 钱包、BitGet 钱包、TP Wallet 或其他 Web3 钱包！');
+                        return;
+                    } catch (walletConnectError) {
+                        alert('未检测到 Web3 钱包，请安装一个支持的钱包！');
+                        return;
+                    }
+                }
+
+                // Request account access - this works with all modern Web3 wallets
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                connectedWalletAddress = accounts[0];
+                
+                // Initialize Web3 with the provider
+                web3 = new Web3(window.ethereum);
+                
+                // Update UI to show connected wallet
+                connectWalletBtn.style.display = 'none';
+                walletInfo.style.display = 'flex';
+                connectedWalletElement.textContent = `${connectedWalletAddress.substring(0, 6)}...${connectedWalletAddress.substring(connectedWalletAddress.length - 4)}`;
+                
+                // Get wallet balance
+                getWalletBalance();
+                
+                alert(getTextByLanguage(`已成功连接钱包！地址：${connectedWalletAddress}`, `Successfully connected wallet! Address: ${connectedWalletAddress}`));
+                
+                // Listen for account changes
+                window.ethereum.on('accountsChanged', function(accounts) {
+                    if (accounts.length === 0) {
+                        // User disconnected
+                        disconnectWallet();
+                    } else {
+                        connectedWalletAddress = accounts[0];
+                        connectedWalletElement.textContent = `${connectedWalletAddress.substring(0, 6)}...${connectedWalletAddress.substring(connectedWalletAddress.length - 4)}`;
+                        getWalletBalance();
+                        alert(getTextByLanguage(`钱包地址已更改：${connectedWalletAddress}`, `Wallet address changed: ${connectedWalletAddress}`));
+                    }
+                });
+                
+                // Listen for network changes
+                window.ethereum.on('chainChanged', function(chainId) {
+                    // Update selectedNetwork based on chainId
+                    let foundNetwork = false;
+                    for (const [key, net] of Object.entries(networks)) {
+                        if (net.chainId === chainId) {
+                            selectedNetwork = key;
+                            // Update network buttons UI
+                            const networkButtons = document.querySelectorAll('.network-btn');
+                            networkButtons.forEach(btn => btn.classList.remove('active'));
+                            document.querySelector(`[data-network="${key}"]`).classList.add('active');
+                            foundNetwork = true;
+                            break;
+                        }
+                    }
+                    getWalletBalance(); // Update balance with new network
+                    if (foundNetwork) {
+                        alert(getTextByLanguage(`网络已更改：${chainId}`, `Network changed: ${chainId}`));
+                    } else {
+                        alert(getTextByLanguage('网络不支持，请切换到 ETH、BNB 或 Polygon 网络！', 'Network not supported, please switch to ETH, BNB or Polygon network!'));
+                    }
+                });
+                
+            } catch (error) {
+                console.error('钱包连接错误:', error);
+                alert('钱包连接失败，请重试！');
+            }
+        }
+
+        // Disconnect wallet function
+        function disconnectWallet() {
+            connectedWalletAddress = null;
+            web3 = null;
+            connectWalletBtn.style.display = 'inline-block';
+            walletInfo.style.display = 'none';
+            alert('已断开钱包连接');
+        }
+
+        // Event listeners
+        connectWalletBtn.addEventListener('click', connectWallet);
+        disconnectWalletBtn.addEventListener('click', disconnectWallet);
+        
+        // Network Selection
+        const networkButtons = document.querySelectorAll('.network-btn');
+        
+        // Update balance when network changes
+        networkButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                setTimeout(getWalletBalance, 1000); // Wait for network switch to complete
+            });
+        });
+
+        networkButtons.forEach(button => {
+            button.addEventListener('click', async function() {
+                try {
+                    selectedNetwork = this.dataset.network;
+                    const network = networks[selectedNetwork];
+                    
+                    // Switch network
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: network.chainId }]
+                    });
+                    
+                    // Update UI
+                    networkButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    alert(`已切换到 ${network.name}`);
+                    
+                } catch (error) {
+                    console.error('网络切换错误:', error);
+                    // If the network is not added yet, add it
+                    if (error.code === 4902) {
+                        try {
+                            const network = networks[selectedNetwork];
+                            await window.ethereum.request({
+                                method: 'wallet_addEthereumChain',
+                                params: [
+                                    {
+                                        chainId: network.chainId,
+                                        chainName: network.name,
+                                        rpcUrls: [network.rpcUrl],
+                                        nativeCurrency: {
+                                            name: selectedNetwork === 'eth' ? 'Ether' : selectedNetwork === 'bnb' ? 'BNB' : 'MATIC',
+                                            symbol: selectedNetwork === 'eth' ? 'ETH' : selectedNetwork === 'bnb' ? 'BNB' : 'MATIC',
+                                            decimals: 18
+                                        }
+                                    }
+                                ]
+                            });
+                            
+                            // Update UI
+                            networkButtons.forEach(btn => btn.classList.remove('active'));
+                            this.classList.add('active');
+                            
+                            alert(`已添加并切换到 ${network.name}`);
+                            
+                        } catch (addError) {
+                            console.error('添加网络错误:', addError);
+                            alert('添加网络失败，请手动添加！');
+                        }
+                    } else {
+                        alert('网络切换失败，请重试！');
+                    }
+                }
+            });
+        });
+
+        // Participate Button
+        const participateBtn = document.getElementById('participateBtn');
+        const amountInput = document.getElementById('amountInput');
+        const successModal = document.getElementById('successModal');
+        const closeModal = document.getElementsByClassName('close')[0];
+
+        participateBtn.addEventListener('click', async function() {
+            try {
+                if (!connectedWalletAddress) {
+                    alert(getTextByLanguage('请先连接钱包！', 'Please connect your wallet first!'));
+                    return;
+                }
+
+                const amount = parseFloat(amountInput.value);
+                if (!amount || amount <= 0) {
+                    alert(getTextByLanguage('请输入有效的参与金额！', 'Please enter a valid participation amount!'));
+                    return;
+                }
+
+                // Convert amount to wei
+                const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
+                
+                // Create transaction
+                // Estimate gas for the transaction instead of using hardcoded value
+                const estimatedGas = await web3.eth.estimateGas({
+                    from: connectedWalletAddress,
+                    to: presaleAddress,
+                    value: amountInWei
+                });
+                
+                const transaction = {
+                    from: connectedWalletAddress,
+                    to: presaleAddress,
+                    value: amountInWei,
+                    gas: web3.utils.toHex(estimatedGas + 10000), // Add buffer to estimated gas
+                    gasPrice: await web3.eth.getGasPrice()
+                };
+                
+                // Send transaction
+                alert(getTextByLanguage('正在发起交易，请在钱包中确认！', 'Initiating transaction, please confirm in your wallet!'));
+                const txHash = await web3.eth.sendTransaction(transaction);
+                
+                // Show success modal with transaction hash
+                const successModalContent = document.querySelector('#successModal .modal-content');
+                if (successModalContent) {
+                    // Add transaction hash to the modal
+                    const txHashElement = document.createElement('p');
+                    txHashElement.textContent = `交易哈希: ${txHash.transactionHash}`;
+                    // Insert after收款地址 line
+                    const lastP = successModalContent.querySelector('p:last-of-type');
+                    if (lastP) {
+                        lastP.after(txHashElement);
+                    }
+                }
+                successModal.style.display = 'block';
+                
+                // Reset amount input
+                amountInput.value = '';
+                
+                console.log('交易成功:', txHash);
+                
+            } catch (error) {
+                console.error('交易错误:', error);
+                if (error.code === 4001) {
+                    alert(getTextByLanguage('交易已被用户取消！', 'Transaction canceled by user!'));
+                } else {
+                    alert(getTextByLanguage('交易失败，请重试！', 'Transaction failed, please try again!'));
+                }
+            }
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            successModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target == successModal) {
+                successModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
