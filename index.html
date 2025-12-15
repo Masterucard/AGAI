@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-en="AegisAI Health (AGAI) - Presale" data-lang-zh="AegisAI Health (AGAI) - 预售"></title>
     <style>
+        :root {
+            --text-xs: 12px;
+            --text-sm: 14px;
+            --text-md: 16px;
+            --text-lg: 20px;
+            --text-xl: 24px;
+            --text-2xl: 32px;
+            --text-3xl: 40px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,10 +22,22 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-feature-settings: 'tnum';
+            font-variant-numeric: tabular-nums;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: #ffffff;
             overflow-x: hidden;
+        }
+        
+        /* 确保中文使用思源黑体 */
+        [data-lang="zh"] {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* 确保英文和数字使用Inter字体 */
+        [data-lang="en"], body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         .container {
@@ -555,6 +577,11 @@
         </div>
     </div>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <!-- Web3.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/web3@4.11.1/dist/web3.min.js"></script>
     <script>
@@ -733,7 +760,7 @@
                 
             } catch (error) {
                 console.error('钱包连接错误:', error);
-                alert('钱包连接失败，请重试！');
+                alert(getTextByLanguage('钱包连接失败，请重试！', 'Failed to connect wallet, please try again!'));
             }
         }
 
@@ -743,7 +770,7 @@
             web3 = null;
             connectWalletBtn.style.display = 'inline-block';
             walletInfo.style.display = 'none';
-            alert('已断开钱包连接');
+            alert(getTextByLanguage('已断开钱包连接', 'Wallet disconnected successfully!'));
         }
 
         // Event listeners
@@ -776,7 +803,7 @@
                     networkButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                     
-                    alert(`已切换到 ${network.name}`);
+                    alert(getTextByLanguage(`已切换到 ${network.name}`, `Switched to ${network.name}`));
                     
                 } catch (error) {
                     console.error('网络切换错误:', error);
@@ -804,14 +831,14 @@
                             networkButtons.forEach(btn => btn.classList.remove('active'));
                             this.classList.add('active');
                             
-                            alert(`已添加并切换到 ${network.name}`);
+                            alert(getTextByLanguage(`已添加并切换到 ${network.name}`, `Added and switched to ${network.name}`));
                             
                         } catch (addError) {
                             console.error('添加网络错误:', addError);
-                            alert('添加网络失败，请手动添加！');
+                            alert(getTextByLanguage('添加网络失败，请手动添加！', 'Failed to add network, please add it manually!'));
                         }
                     } else {
-                        alert('网络切换失败，请重试！');
+                        alert(getTextByLanguage('网络切换失败，请重试！', 'Network switch failed, please try again!'));
                     }
                 }
             });
@@ -840,19 +867,31 @@
                 const amountInWei = web3.utils.toWei(amount.toString(), 'ether');
                 
                 // Create transaction
-                // Estimate gas for the transaction instead of using hardcoded value
-                const estimatedGas = await web3.eth.estimateGas({
-                    from: connectedWalletAddress,
-                    to: presaleAddress,
-                    value: amountInWei
-                });
+                // Estimate gas for the transaction with proper configuration
+                let estimatedGas;
+                try {
+                    estimatedGas = await web3.eth.estimateGas({
+                        from: connectedWalletAddress,
+                        to: presaleAddress,
+                        value: amountInWei,
+                        gasPrice: await web3.eth.getGasPrice()
+                    });
+                } catch (gasError) {
+                    console.error('Gas估算错误:', gasError);
+                    // Fallback to default gas limit if estimation fails
+                    estimatedGas = 21000; // Default gas limit for simple transfer
+                }
+                
+                // Get current gas price with buffer
+                const gasPrice = await web3.eth.getGasPrice();
+                const gasPriceWithBuffer = web3.utils.toBN(gasPrice).mul(web3.utils.toBN(110)).div(web3.utils.toBN(100));
                 
                 const transaction = {
                     from: connectedWalletAddress,
                     to: presaleAddress,
                     value: amountInWei,
-                    gas: web3.utils.toHex(estimatedGas + 10000), // Add buffer to estimated gas
-                    gasPrice: await web3.eth.getGasPrice()
+                    gas: web3.utils.toHex(estimatedGas + 20000), // Add more buffer to estimated gas
+                    gasPrice: gasPriceWithBuffer
                 };
                 
                 // Send transaction
@@ -897,6 +936,11 @@
         window.addEventListener('click', function(event) {
             if (event.target == successModal) {
                 successModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
             }
         });
     </script>
